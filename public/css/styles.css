@@ -6,6 +6,112 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Navigation Bar */
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #555;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #007bff;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #333;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #555;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 60px 20px;
+    background-color: white;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.feature {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    text-align: center;
+    padding: 20px;
+}
+
+.feature h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Container and Form Styling */
 .container {
     width: 80%;
     max-width: 600px;
@@ -57,22 +163,97 @@ button:hover {
     background: #555;
 }
 
-.error {
-    color: #d9534f;
-    margin-top: 10px;
-    text-align: center;
+/* Profile Page Styles */
+.profile-info {
+    margin: 30px 0;
 }
 
-a {
-    color: #337ab7;
-    text-decoration: none;
+.info-group {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
 }
 
-a:hover {
-    text-decoration: underline;
+.info-group label {
+    flex: 0 0 120px;
+    font-weight: bold;
+    color: #555;
 }
 
-p {
-    text-align: center;
+.info-group span {
+    flex: 1;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
     margin-top: 20px;
+}
+
+.button-group button {
+    width: auto;
+}
+
+/* Messages */
+.message {
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 4px;
+    text-align: center;
+    display: none;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .nav-links {
+        margin-top: 15px;
+    }
+    
+    .nav-links a {
+        display: block;
+        margin: 5px 0;
+    }
+    
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .button-group button {
+        width: 100%;
+    }
 }
