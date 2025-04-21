@@ -46,7 +46,10 @@ var dbOperations = {
 // Make dbOperations available to routes
 app.locals.db = dbOperations;
 
-// Routes will be added here
+// Import routes
+var authRouter = require('./routes/auth');
+
+// Routes
 app.get('/', function(req, res) {
     res.send(`
         <h1>Welcome to Tech E-commerce!</h1>
@@ -57,6 +60,9 @@ app.get('/', function(req, res) {
         </ul>
     `);
 });
+
+// Authentication routes
+app.use('/auth', authRouter);
 
 // Error handling middleware
 app.use(function(err, req, res, next) {

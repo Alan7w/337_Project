@@ -1,0 +1,9 @@
+[
+  {
+    "username": "Bob",
+    "email": "asadkhonrasulov@gmail.com",
+    "passwordHash": "$2a$10$iVlQnyhevs/kF80EZTe.OO8KVzUJpr6B.ZH.StqFeWwyy9PEin3BS",
+    "isAdmin": false,
+    "createdAt": "2025-04-21T01:28:57.795Z"
+  }
+]
