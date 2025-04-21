@@ -1,14 +1,10 @@
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
-var connectDB = require('./config/db');
-require('dotenv').config();
+var fs = require('fs');
 
 // Initialize Express app
 var app = express();
-
-// Connect to MongoDB
-connectDB();
 
 // Middleware
 app.use(express.json());
@@ -17,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Session middleware
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'tech-ecommerce-secret',
+    secret: 'tech-ecommerce-secret',
     resave: false,
     saveUninitialized: false,
     cookie: { 
@@ -26,9 +22,40 @@ app.use(session({
     }
 }));
 
+// Simple file-based database operations
+var dbOperations = {
+    readUsers: function() {
+        try {
+            var data = fs.readFileSync(path.join(__dirname, 'data', 'users.json'), 'utf8');
+            return JSON.parse(data);
+        } catch (error) {
+            return [];
+        }
+    },
+    writeUsers: function(users) {
+        try {
+            fs.writeFileSync(path.join(__dirname, 'data', 'users.json'), JSON.stringify(users, null, 2));
+            return true;
+        } catch (error) {
+            console.error('Error writing users:', error);
+            return false;
+        }
+    }
+};
+
+// Make dbOperations available to routes
+app.locals.db = dbOperations;
+
 // Routes will be added here
 app.get('/', function(req, res) {
-    res.send('Welcome to Tech E-commerce!');
+    res.send(`
+        <h1>Welcome to Tech E-commerce!</h1>
+        <p>Getting started:</p>
+        <ul>
+            <li><a href="/auth/register">Register</a></li>
+            <li><a href="/auth/login">Login</a></li>
+        </ul>
+    `);
 });
 
 // Error handling middleware
