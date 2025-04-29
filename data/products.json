@@ -1,1 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "description": "Noise-cancelling over-ear headphones.",
+    "price": 129.99,
+    "category": "Audio",
+    "imageUrl": "/images/headphones.jpg",
+    "stock": 12
+  },
+  {
+    "id": 2,
+    "name": "Gaming Mouse",
+    "description": "High precision RGB gaming mouse.",
+    "price": 49.99,
+    "category": "Accessories",
+    "imageUrl": "/images/mouse.jpg",
+    "stock": 30
+  }
+]
 []
