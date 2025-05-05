@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Simple Cart</title>
+</head>
+<body>
+  <h1>Your Shopping Cart</h1>
+  <div id="cart">Loading…</div>
+  <button onclick="checkout()">Checkout</button>
+
+  <script>
+    // 1. Load & display the cart
+    function loadCart() {
+      fetch('/cart')
+        .then(r => r.json())
+        .then(data => {
+          if (!data.items.length) {
+            return document.getElementById('cart').innerHTML = '<p>Your cart is empty.</p>';
+          }
+          var html = '<table border="1" cellpadding="5"><tr>'
+                   + '<th>Product</th><th>Qty</th><th>Price</th><th>Subtotal</th><th>Action</th>'
+                   + '</tr>';
+          data.items.forEach(function(item) {
+            html += '<tr>'
+                 +   '<td>' + item.name + '</td>'
+                 +   '<td><input type="number" value="' + item.qty + '" min="1" '
+                 +       'onchange="updateQty(' + item.id + ', this.value)"></td>'
+                 +   '<td>$' + item.price.toFixed(2) + '</td>'
+                 +   '<td>$' + item.subtotal.toFixed(2) + '</td>'
+                 +   '<td><button onclick="removeItem(' + item.id + ')">Remove</button></td>'
+                 + '</tr>';
+          });
+          html += '</table>'
+               +  '<p><strong>Total: $' + data.total.toFixed(2) + '</strong></p>';
+          document.getElementById('cart').innerHTML = html;
+        });
+    }
+
+    // 2. Update quantity
+    function updateQty(id, qty) {
+      fetch('/cart/update', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ productId: id, qty: qty })
+      }).then(loadCart);
+    }
+
+    // 3. Remove item
+    function removeItem(id) {
+      fetch('/cart/remove', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ productId: id })
+      }).then(loadCart);
+    }
+
+    // 4. Checkout
+    function checkout() {
+      fetch('/cart/checkout', { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+          if (data.success) {
+            alert('Order placed! ID: ' + data.order.id);
+          } else {
+            alert('Error: ' + (data.error || 'Could not place order'));
+          }
+          loadCart();
+        });
+    }
+
+    // Initial load
+    window.onload = loadCart;
+  </script>
+</body>
+</html>
