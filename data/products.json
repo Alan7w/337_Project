@@ -1,21 +1,182 @@
 [
   {
     "id": 1,
-    "name": "Wireless Headphones",
-    "description": "Noise-cancelling over-ear headphones.",
-    "price": 129.99,
+    "name": "Pro Wireless Headphones",
+    "description": "High-quality noise-cancelling over-ear headphones with 30-hour battery life and premium sound quality.",
+    "price": 249.99,
     "category": "Audio",
-    "imageUrl": "/images/headphones.jpg",
-    "stock": 12
+    "imageUrl": "/images/wireless_headphones.jpg",
+    "stock": 25
   },
   {
     "id": 2,
-    "name": "Gaming Mouse",
-    "description": "High precision RGB gaming mouse.",
+    "name": "Gaming Mouse RGB",
+    "description": "High-precision gaming mouse with 16K DPI optical sensor, RGB lighting, and 8 programmable buttons.",
+    "price": 69.99,
+    "category": "Gaming",
+    "imageUrl": "/images/gaming_mouse.jpg",
+    "stock": 42
+  },
+  {
+    "id": 3,
+    "name": "Ultra-thin Laptop 15\"",
+    "description": "Powerful laptop with Intel i7, 16GB RAM, 512GB SSD, and a stunning 15-inch 4K display.",
+    "price": 1299.99,
+    "category": "Computers",
+    "imageUrl": "/images/laptop.jpg",
+    "stock": 10
+  },
+  {
+    "id": 4,
+    "name": "4K Smart TV 55\"",
+    "description": "55-inch 4K smart TV with HDR, built-in streaming apps, and voice control.",
+    "price": 699.99,
+    "category": "TVs",
+    "imageUrl": "/images/smart_tv.jpg",
+    "stock": 3
+  },
+  {
+    "id": 5,
+    "name": "Wireless Earbuds",
+    "description": "True wireless earbuds with active noise cancellation, waterproof design, and 24-hour battery life.",
+    "price": 129.99,
+    "category": "Audio",
+    "imageUrl": "/images/wireless_earbuds.jpg",
+    "stock": 30
+  },
+  {
+    "id": 6,
+    "name": "Mechanical Keyboard",
+    "description": "RGB mechanical gaming keyboard with customizable keys and Cherry MX switches.",
+    "price": 149.99,
+    "category": "Gaming",
+    "imageUrl": "/images/mechanical_keyboard.jpg",
+    "stock": 20
+  },
+  {
+    "id": 7,
+    "name": "Smart Watch",
+    "description": "Advanced smartwatch with heart rate monitoring, GPS, and 5-day battery life.",
+    "price": 199.99,
+    "category": "Wearables",
+    "imageUrl": "/images/smartwatch.jpg",
+    "stock": 22
+  },
+  {
+    "id": 8,
+    "name": "Bluetooth Speaker",
+    "description": "Portable Bluetooth speaker with 360° sound, waterproof design, and 12-hour battery life.",
+    "price": 89.99,
+    "category": "Audio",
+    "imageUrl": "/images/bluetooth_speaker.jpg",
+    "stock": 18
+  },
+  {
+    "id": 9,
+    "name": "Graphics Card RTX 4070",
+    "description": "High-performance graphics card for gaming and content creation with ray tracing capabilities.",
+    "price": 599.99,
+    "category": "Components",
+    "imageUrl": "/images/graphics_card.jpg",
+    "stock": 5
+  },
+  {
+    "id": 10,
+    "name": "External SSD 1TB",
+    "description": "Portable SSD with 1TB storage capacity and up to 1050MB/s read speeds.",
+    "price": 149.99,
+    "category": "Storage",
+    "imageUrl": "/images/external_ssd.jpg",
+    "stock": 35
+  },
+  {
+    "id": 11,
+    "name": "UltraWide Monitor 34\"",
+    "description": "34-inch ultrawide curved monitor with 3440x1440 resolution and 144Hz refresh rate.",
+    "price": 499.99,
+    "category": "Monitors",
+    "imageUrl": "/images/ultrawide_monitor.jpg",
+    "stock": 8
+  },
+  {
+    "id": 12,
+    "name": "Wireless Charging Pad",
+    "description": "Fast wireless charging pad compatible with iPhone, Samsung, and other Qi-enabled devices.",
+    "price": 29.99,
+    "category": "Accessories",
+    "imageUrl": "/images/wireless_charger.jpg",
+    "stock": 50
+  },
+  {
+    "id": 13,
+    "name": "Smart Home Hub",
+    "description": "Central hub for controlling all your smart home devices with voice commands.",
+    "price": 119.99,
+    "category": "Smart Home",
+    "imageUrl": "/images/smart_home_hub.jpg",
+    "stock": 15
+  },
+  {
+    "id": 14,
+    "name": "Professional Camera",
+    "description": "24.2MP digital camera with 4K video recording and interchangeable lenses.",
+    "price": 899.99,
+    "category": "Cameras",
+    "imageUrl": "/images/camera.jpg",
+    "stock": 7
+  },
+  {
+    "id": 15,
+    "name": "Gaming Console",
+    "description": "Next-gen gaming console with 4K gaming, fast load times, and extensive game library.",
+    "price": 499.99,
+    "category": "Gaming",
+    "imageUrl": "/images/gaming_console.jpg",
+    "stock": 12
+  },
+  {
+    "id": 16,
+    "name": "Tablet 10.9\"",
+    "description": "Powerful tablet with 10.9-inch Retina display, A14 chip, and all-day battery life.",
+    "price": 449.99,
+    "category": "Tablets",
+    "imageUrl": "/images/tablet.jpg",
+    "stock": 20
+  },
+  {
+    "id": 17,
+    "name": "Smart Doorbell",
+    "description": "HD video doorbell with two-way talk, motion detection, and smartphone notifications.",
+    "price": 149.99,
+    "category": "Smart Home",
+    "imageUrl": "/images/smart_doorbell.jpg",
+    "stock": 25
+  },
+  {
+    "id": 18,
+    "name": "Premium Smartphone",
+    "description": "Flagship smartphone with 6.7-inch display, triple camera system, and 5G connectivity.",
+    "price": 999.99,
+    "category": "Smartphones",
+    "imageUrl": "/images/smartphone.jpg",
+    "stock": 18
+  },
+  {
+    "id": 19,
+    "name": "Mesh WiFi System",
+    "description": "Whole-home mesh WiFi system with coverage up to 5,000 sq. ft. and speeds up to 3 Gbps.",
+    "price": 299.99,
+    "category": "Networking",
+    "imageUrl": "/images/mesh_wifi.jpg",
+    "stock": 14
+  },
+  {
+    "id": 20,
+    "name": "USB-C Hub",
+    "description": "10-in-1 USB-C hub with HDMI, Ethernet, USB ports, and card readers.",
     "price": 49.99,
     "category": "Accessories",
-    "imageUrl": "/images/mouse.jpg",
-    "stock": 30
+    "imageUrl": "/images/usb_hub.jpg",
+    "stock": 40
   }
 ]
-[]

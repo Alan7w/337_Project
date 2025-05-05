@@ -1,43 +1,90 @@
-var express = require('express');
-var session = require('express-session');
-var path = require('path');
-var fs = require('fs');
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const fs = require('fs');
 
-// Initialize Express app
-var app = express();
+// Create Express app
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // Session middleware
 app.use(session({
-    secret: 'tech-ecommerce-secret',
+    secret: 'your-secret-key',
     resave: false,
-    saveUninitialized: false,
-    cookie: { 
-        secure: false, // Set to true in production with HTTPS
-        maxAge: 1000 * 60 * 60 * 24 // 24 hours
-    }
+    saveUninitialized: true,
+    cookie: { secure: false } // set to true if using https
 }));
 
-// Simple file-based database operations
-var dbOperations = {
+// Database operations
+const dbOperations = {
     readUsers: function() {
         try {
-            var data = fs.readFileSync(path.join(__dirname, 'data', 'users.json'), 'utf8');
+            const data = fs.readFileSync(path.join(__dirname, 'data/users.json'), 'utf8');
             return JSON.parse(data);
-        } catch (error) {
+        } catch (err) {
+            console.error('Error reading users:', err);
             return [];
         }
     },
     writeUsers: function(users) {
         try {
-            fs.writeFileSync(path.join(__dirname, 'data', 'users.json'), JSON.stringify(users, null, 2));
+            fs.writeFileSync(
+                path.join(__dirname, 'data/users.json'), 
+                JSON.stringify(users, null, 2)
+            );
             return true;
-        } catch (error) {
-            console.error('Error writing users:', error);
+        } catch (err) {
+            console.error('Error writing users:', err);
+            return false;
+        }
+    },
+    readProducts: function() {
+        try {
+            const data = fs.readFileSync(path.join(__dirname, 'data/products.json'), 'utf8');
+            return JSON.parse(data);
+        } catch (err) {
+            console.error('Error reading products:', err);
+            return [];
+        }
+    },
+    writeProducts: function(products) {
+        try {
+            fs.writeFileSync(
+                path.join(__dirname, 'data/products.json'), 
+                JSON.stringify(products, null, 2)
+            );
+            return true;
+        } catch (err) {
+            console.error('Error writing products:', err);
+            return false;
+        }
+    },
+    readOrders: function() {
+        try {
+            const data = fs.readFileSync(path.join(__dirname, 'data/orders.json'), 'utf8');
+            return JSON.parse(data);
+        } catch (err) {
+            console.error('Error reading orders:', err);
+            return [];
+        }
+    },
+    writeOrders: function(orders) {
+        try {
+            fs.writeFileSync(
+                path.join(__dirname, 'data/orders.json'), 
+                JSON.stringify(orders, null, 2)
+            );
+            return true;
+        } catch (err) {
+            console.error('Error writing orders:', err);
             return false;
         }
     }
@@ -46,102 +93,63 @@ var dbOperations = {
 // Make dbOperations available to routes
 app.locals.db = dbOperations;
 
-// Import routes
-var authRouter = require('./routes/auth');
-var authMiddleware = require('./middleware/authMiddleware');
-var cartRouter = require('./routes/cart');  
+// Ensure data directory exists
+const dataDir = path.join(__dirname, 'data');
+if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
+}
 
+// Ensure required files exist
+const requiredFiles = [
+    { path: 'data/users.json', defaultContent: '[]' },
+    { path: 'data/products.json', defaultContent: '[]' },
+    { path: 'data/orders.json', defaultContent: '[]' }
+];
 
-// Routes
-app.get('/', function(req, res) {
-    if (req.session && req.session.userId) {
-        // User is logged in - show dashboard
-        res.send(`
-            <h1>Welcome to Tech E-commerce, ${req.session.userId}!</h1>
-            <p>You are logged in as ${req.session.isAdmin ? 'Administrator' : 'User'}</p>
-            <ul>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/products">Products</a></li>
-                <li><a href="/cart/cart.html">Cart</a></li>
-                <li><a href="/auth/logout">Logout</a></li>
-            </ul>
-        `);
-    } else {
-        // User is not logged in - show login/register
-        res.sendFile('index.html', { root: './public/pages' });
+requiredFiles.forEach(file => {
+    const filePath = path.join(__dirname, file.path);
+    if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, file.defaultContent);
+        console.log(`Created ${file.path}`);
     }
 });
 
-// Authentication routes
-app.use('/auth', authRouter);
-app.use('/cart', cartRouter);
+// Import route modules
+const authRoutes = require('./routes/auth');
+const authMiddleware = require('./middleware/authMiddleware');
+const productRoutes = require('./routes/products');
+const cartRoutes = require('./routes/cart');
+const userRoutes = require('./routes/users');
 
-// Protected profile route
-app.get('/profile', authMiddleware.ensureAuthenticated, function(req, res) {
-    res.sendFile('profile.html', { root: './public/pages' });
+// API Routes
+app.use('/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/cart', authMiddleware.ensureAuthenticated, cartRoutes);
+app.use('/api/user', authMiddleware.ensureAuthenticated, userRoutes);
+
+// Page Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/pages/index.html'));
 });
 
-// API route to get user data
-app.get('/api/user', authMiddleware.ensureAuthenticated, function(req, res) {
-    var users = req.app.locals.db.readUsers();
-    var currentUser = users.find(function(user) {
-        return user.username === req.session.userId;
-    });
-    
-    if (currentUser) {
-        // Don't send password hash
-        var userProfile = {
-            username: currentUser.username,
-            email: currentUser.email,
-            isAdmin: currentUser.isAdmin,
-            createdAt: currentUser.createdAt
-        };
-        res.json(userProfile);
-    } else {
-        res.status(404).json({ error: 'User not found' });
-    }
+app.get('/products', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/pages/products.html'));
 });
 
-// API route to update user profile
-app.put('/api/user', authMiddleware.ensureAuthenticated, function(req, res) {
-    var users = req.app.locals.db.readUsers();
-    var userIndex = users.findIndex(function(user) {
-        return user.username === req.session.userId;
-    });
-    
-    if (userIndex === -1) {
-        return res.status(404).json({ error: 'User not found' });
-    }
-    
-    var { email } = req.body;
-    
-    // Check if new email is already taken
-    var emailTaken = users.some(function(user, index) {
-        return user.email === email && index !== userIndex;
-    });
-    
-    if (emailTaken) {
-        return res.status(400).json({ error: 'Email already taken' });
-    }
-    
-    // Update user email
-    users[userIndex].email = email;
-    
-    if (req.app.locals.db.writeUsers(users)) {
-        res.json({ success: true, message: 'Profile updated successfully' });
-    } else {
-        res.status(500).json({ error: 'Failed to update profile' });
-    }
+app.get('/profile', authMiddleware.ensureAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/pages/profile.html'));
 });
 
-// Error handling middleware
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
+app.get('/cart', authMiddleware.ensureAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/pages/cart.html'));
+});
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).send('Page not found');
 });
 
 // Start server
-var PORT = process.env.PORT || 8080;
-app.listen(PORT, function() {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });

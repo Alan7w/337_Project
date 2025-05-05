@@ -1,48 +1,266 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Tech E-commerce</title>
+    <title>Tech E-commerce - Your One-Stop Tech Shop</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="logo">Tech E-commerce</div>
             <div class="nav-links">
-                <a href="/auth/login">Login</a>
-                <a href="/auth/register">Register</a>
+                <a href="/" class="active">Home</a>
+                <a href="/products">Products</a>
+                <a href="/cart" class="logged-in-nav">Cart <span id="cartCount" class="cart-count"></span></a>
+                <a href="/profile" class="logged-in-nav">Profile</a>
+                <a href="/auth/login" class="logged-out-nav">Login</a>
+                <a href="/auth/register" class="logged-out-nav">Register</a>
+                <a href="/auth/logout" class="logged-in-nav">Logout</a>
             </div>
         </nav>
     </header>
     
     <main>
-        <div class="hero">
-            <h1>Welcome to Tech E-commerce</h1>
-            <p>Your one-stop shop for the latest technology products</p>
-            <div class="cta-buttons">
-                <a href="/auth/register" class="btn btn-primary">Get Started</a>
-                <a href="/products" class="btn btn-secondary">Browse Products</a>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Tech E-commerce</h1>
+                <p>Your one-stop shop for the latest technology products</p>
+                <div class="cta-buttons">
+                    <a href="/auth/register" class="btn btn-primary logged-out-nav">Get Started</a>
+                    <a href="/products" class="btn btn-secondary">Browse Products</a>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <section class="features">
-            <div class="feature">
-                <h3>Wide Selection</h3>
-                <p>Browse through hundreds of tech products</p>
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why Choose Us</h2>
+                    <p>We offer the best tech shopping experience</p>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <img src="../images/icon-selection.svg" alt="Wide Selection" onerror="this.src='../images/placeholder.jpg'">
+                        </div>
+                        <h3>Wide Selection</h3>
+                        <p>Browse through hundreds of tech products from top brands</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <img src="../images/icon-secure.svg" alt="Secure Shopping" onerror="this.src='../images/placeholder.jpg'">
+                        </div>
+                        <h3>Secure Shopping</h3>
+                        <p>Safe and secure payment processing with encryption</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <img src="../images/icon-delivery.svg" alt="Fast Delivery" onerror="this.src='../images/placeholder.jpg'">
+                        </div>
+                        <h3>Fast Delivery</h3>
+                        <p>Quick shipping to your doorstep with real-time tracking</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature">
-                <h3>Secure Shopping</h3>
-                <p>Safe and secure payment processing</p>
+        </section>
+        
+        <!-- Featured Products Section -->
+        <section class="featured-products">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured Products</h2>
+                    <p>Check out our most popular tech items</p>
+                </div>
+                <div class="product-highlights" id="featuredProducts">
+                    <!-- Featured products will be loaded here dynamically -->
+                    <div class="product-highlight-placeholder">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <div class="product-title"></div>
+                            <div class="product-price"></div>
+                        </div>
+                    </div>
+                    <div class="product-highlight-placeholder">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <div class="product-title"></div>
+                            <div class="product-price"></div>
+                        </div>
+                    </div>
+                    <div class="product-highlight-placeholder">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <div class="product-title"></div>
+                            <div class="product-price"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-all">
+                    <a href="/products" class="btn btn-primary">View All Products</a>
+                </div>
             </div>
-            <div class="feature">
-                <h3>Fast Delivery</h3>
-                <p>Quick shipping to your doorstep</p>
+        </section>
+        
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h2>Stay Updated</h2>
+                    <p>Subscribe to our newsletter for the latest tech news and exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
     
     <footer>
-        <p>&copy; 2025 Tech E-commerce. All rights reserved.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tech E-commerce</h3>
+                    <p>Your one-stop shop for all tech needs</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/products">Products</a></li>
+                        <li><a href="/profile">My Account</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@teche-commerce.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tech E-commerce. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check login status and update navigation
+            fetch('/api/user')
+                .then(response => {
+                    if (response.ok) {
+                        // User is logged in
+                        document.querySelectorAll('.logged-out-nav').forEach(el => {
+                            el.style.display = 'none';
+                        });
+                        document.querySelectorAll('.logged-in-nav').forEach(el => {
+                            el.style.display = 'block';
+                        });
+                        
+                        // Update cart count
+                        updateCartCount();
+                        
+                        // Load featured products
+                        loadFeaturedProducts();
+                    } else {
+                        // User is not logged in
+                        document.querySelectorAll('.logged-in-nav').forEach(el => {
+                            el.style.display = 'none';
+                        });
+                        document.querySelectorAll('.logged-out-nav').forEach(el => {
+                            el.style.display = 'block';
+                        });
+                        
+                        // Still load featured products
+                        loadFeaturedProducts();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking login status:', error);
+                });
+            
+            // Newsletter form submission
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    alert(`Thank you! ${email} has been subscribed to our newsletter.`);
+                    this.reset();
+                });
+            }
+        });
+        
+        function updateCartCount() {
+            const cartCountElement = document.getElementById('cartCount');
+            if (!cartCountElement) return;
+            
+            fetch('/api/cart')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Not logged in or cart unavailable');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const itemCount = data.items.reduce((total, item) => total + item.qty, 0);
+                    cartCountElement.textContent = itemCount > 0 ? itemCount : '';
+                    cartCountElement.style.display = itemCount > 0 ? 'inline-block' : 'none';
+                })
+                .catch(error => {
+                    // Don't show errors for this - it's expected to fail when not logged in
+                    cartCountElement.style.display = 'none';
+                });
+        }
+        
+        function loadFeaturedProducts() {
+            fetch('/api/products')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load products');
+                    }
+                    return response.json();
+                })
+                .then(products => {
+                    // Get container and clear placeholders
+                    const container = document.getElementById('featuredProducts');
+                    if (!container) return;
+                    
+                    container.innerHTML = '';
+                    
+                    // Sort by highest stock as a simple way to find "popular" products
+                    // In a real app, you might sort by sales or ratings
+                    const featuredProducts = [...products]
+                        .sort((a, b) => b.stock - a.stock)
+                        .slice(0, 3);
+                    
+                    featuredProducts.forEach(product => {
+                        const productEl = document.createElement('div');
+                        productEl.className = 'product-highlight';
+                        
+                        productEl.innerHTML = `
+                            <div class="product-image">
+                                <img src="${product.imageUrl}" alt="${product.name}" onerror="this.src='../images/placeholder.jpg'">
+                            </div>
+                            <div class="product-info">
+                                <h3>${product.name}</h3>
+                                <p class="price">$${product.price.toFixed(2)}</p>
+                                <a href="/products" class="btn btn-secondary">View Details</a>
+                            </div>
+                        `;
+                        
+                        container.appendChild(productEl);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading featured products:', error);
+                });
+        }
+    </script>
 </body>
 </html>

@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": 1746417331120,
+    "userId": "Bob",
+    "items": [
+      {
+        "productId": 4,
+        "name": "4K Smart TV 55\"",
+        "price": 699.99,
+        "qty": 12,
+        "subtotal": 8399.880000000001
+      }
+    ],
+    "total": 8399.880000000001,
+    "status": "pending",
+    "date": "2025-05-05T03:55:31.120Z"
+  }
+]

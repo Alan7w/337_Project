@@ -1,8 +1,8 @@
 [
   {
-    "username": "Bob",
+    "username": "Asad",
     "email": "asadkhonrasulov@gmail.com",
-    "passwordHash": "$2a$10$iVlQnyhevs/kF80EZTe.OO8KVzUJpr6B.ZH.StqFeWwyy9PEin3BS",
+    "passwordHash": "$2a$10$/8vcaRNCdWxPL84k/99J8enkntKH7umS8vDin.3g68Q6NOR2pZ00K",
     "isAdmin": false,
     "createdAt": "2025-04-21T01:28:57.795Z"
   }
