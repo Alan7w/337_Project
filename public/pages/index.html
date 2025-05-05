@@ -29,7 +29,6 @@
                 <h1>Welcome to Tech E-commerce</h1>
                 <p>Your one-stop shop for the latest technology products</p>
                 <div class="cta-buttons">
-                    <a href="/auth/register" class="btn btn-primary logged-out-nav">Get Started</a>
                     <a href="/products" class="btn btn-secondary">Browse Products</a>
                 </div>
             </div>
@@ -45,21 +44,21 @@
                 <div class="features">
                     <div class="feature">
                         <div class="feature-icon">
-                            <img src="../images/icon-selection.svg" alt="Wide Selection" onerror="this.src='../images/placeholder.jpg'">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 10h18v10.004c0 .55-.445.996-.993.996H3.993A.994.994 0 0 1 3 20.004V10zm6 2v2h6v-2H9zM2 4c0-.552.455-1 .992-1h18.016c.548 0 .992.445.992 1v4H2V4z" fill="#0062E6"/></svg>
                         </div>
                         <h3>Wide Selection</h3>
                         <p>Browse through hundreds of tech products from top brands</p>
                     </div>
                     <div class="feature">
                         <div class="feature-icon">
-                            <img src="../images/icon-secure.svg" alt="Secure Shopping" onerror="this.src='../images/placeholder.jpg'">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 1l8.217 1.826a1 1 0 0 1 .783.976v9.987a6 6 0 0 1-2.672 4.992L12 23l-6.328-4.219A6 6 0 0 1 3 13.79V3.802a1 1 0 0 1 .783-.976L12 1zm0 2.049L5 4.604v9.185a4 4 0 0 0 1.781 3.328L12 20.597l5.219-3.48A4 4 0 0 0 19 13.79V4.604L12 3.05zM12 7a2 2 0 0 1 1.001 3.732L13 15h-2v-4.268A2 2 0 0 1 12 7z" fill="#0062E6"/></svg>
                         </div>
                         <h3>Secure Shopping</h3>
                         <p>Safe and secure payment processing with encryption</p>
                     </div>
                     <div class="feature">
                         <div class="feature-icon">
-                            <img src="../images/icon-delivery.svg" alt="Fast Delivery" onerror="this.src='../images/placeholder.jpg'">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64"><path fill="none" d="M0 0h24v24H0z"/><path d="M8.965 18a3.5 3.5 0 0 1-6.93 0H1V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2h3l3 4.056V18h-2.035a3.5 3.5 0 0 1-6.93 0h-5.07zM15 7H3v8.05a3.5 3.5 0 0 1 5.663.95h5.674c.168-.353.393-.674.663-.95V7zm2 6h4v-.285L18.5 10.5H17V13zm-8.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm13 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill="#0062E6"/></svg>
                         </div>
                         <h3>Fast Delivery</h3>
                         <p>Quick shipping to your doorstep with real-time tracking</p>
@@ -104,20 +103,6 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Newsletter Section -->
-        <section class="newsletter">
-            <div class="container">
-                <div class="newsletter-content">
-                    <h2>Stay Updated</h2>
-                    <p>Subscribe to our newsletter for the latest tech news and exclusive offers</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Enter your email" required>
-                        <button type="submit" class="btn btn-primary">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
     
     <footer>
@@ -147,10 +132,16 @@
         </div>
     </footer>
     
-    <script src="../js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Check login status and update navigation
+            checkLoginStatus();
+            
+            // Load featured products
+            loadFeaturedProducts();
+        });
+        
+        function checkLoginStatus() {
             fetch('/api/user')
                 .then(response => {
                     if (response.ok) {
@@ -159,42 +150,32 @@
                             el.style.display = 'none';
                         });
                         document.querySelectorAll('.logged-in-nav').forEach(el => {
-                            el.style.display = 'block';
+                            el.style.display = 'inline-block';
                         });
                         
                         // Update cart count
                         updateCartCount();
-                        
-                        // Load featured products
-                        loadFeaturedProducts();
                     } else {
                         // User is not logged in
                         document.querySelectorAll('.logged-in-nav').forEach(el => {
                             el.style.display = 'none';
                         });
                         document.querySelectorAll('.logged-out-nav').forEach(el => {
-                            el.style.display = 'block';
+                            el.style.display = 'inline-block';
                         });
-                        
-                        // Still load featured products
-                        loadFeaturedProducts();
                     }
                 })
                 .catch(error => {
                     console.error('Error checking login status:', error);
+                    // Default to logged out view on error
+                    document.querySelectorAll('.logged-in-nav').forEach(el => {
+                        el.style.display = 'none';
+                    });
+                    document.querySelectorAll('.logged-out-nav').forEach(el => {
+                        el.style.display = 'inline-block';
+                    });
                 });
-            
-            // Newsletter form submission
-            const newsletterForm = document.querySelector('.newsletter-form');
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const email = this.querySelector('input[type="email"]').value;
-                    alert(`Thank you! ${email} has been subscribed to our newsletter.`);
-                    this.reset();
-                });
-            }
-        });
+        }
         
         function updateCartCount() {
             const cartCountElement = document.getElementById('cartCount');
