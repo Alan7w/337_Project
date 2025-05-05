@@ -62,6 +62,7 @@ app.get('/', function(req, res) {
             <ul>
                 <li><a href="/profile">Profile</a></li>
                 <li><a href="/products">Products</a></li>
+                <li><a href="/cart/cart.html">Cart</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
             </ul>
         `);
@@ -73,6 +74,7 @@ app.get('/', function(req, res) {
 
 // Authentication routes
 app.use('/auth', authRouter);
+app.use('/cart', cartRouter);
 
 // Protected profile route
 app.get('/profile', authMiddleware.ensureAuthenticated, function(req, res) {
