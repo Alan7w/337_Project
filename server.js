@@ -49,6 +49,8 @@ app.locals.db = dbOperations;
 // Import routes
 var authRouter = require('./routes/auth');
 var authMiddleware = require('./middleware/authMiddleware');
+var cartRouter = require('./routes/cart');  
+
 
 // Routes
 app.get('/', function(req, res) {
