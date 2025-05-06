@@ -366,3 +366,15 @@ function showMessage(message, type) {
       messageBox.style.display = 'none';
   }, 3000);
 }
+
+function renderProductCard(product) {
+  return `
+    <div class="product-card">
+      <img src="${product.imageUrl}" alt="${product.name}" onerror="this.src='/images/placeholder.jpg'" />
+      <h3>${product.name}</h3>
+      <p>${product.description}</p>
+      <p>Price: $${product.price.toFixed(2)}</p>
+      <p>Stock: ${product.stock}</p>
+    </div>
+  `;
+}
